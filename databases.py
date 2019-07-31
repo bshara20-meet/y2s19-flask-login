@@ -12,6 +12,7 @@ def add_user(name,secret_word):
     """Add a user to the DB."""
     user = User(username=name)
     #there is a line of code missing here, what else does a user need?
+    user.hash_password(secret_word)
     session.add(user)
     session.commit()
 
@@ -20,3 +21,8 @@ def get_user(username):
     return session.query(User).filter_by(username=username).first()
 
 
+def add_food(username,food):
+	user_object = get_user(username)
+	user_object.favorite_food = food
+	session.commit()
+	
